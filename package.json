@@ -25,8 +25,12 @@
     "build:local": "cp .env.local .env && npm run build",
     "build:qa": "cp .env.local.qa .env && npm run build",
     "build:production": "cp .env.local.production .env && npm run build",
+    "release:patch": "npm version patch && npm run extract",
+    "release:minor": "npm version minor && npm run extract",
+    "release:major": "npm version major && npm run extract",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "extract": "node -e \"console.log('export const VERSION = ' + JSON.stringify(require('./package.json').version) + ';')\" > src/version.ts && yarn format:fix && git add . && git commit -m 'build: version update' && git push --tags"
   },
   "eslintConfig": {
     "extends": [
